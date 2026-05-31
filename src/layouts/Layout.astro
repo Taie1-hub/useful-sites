@@ -19,29 +19,34 @@ const { title, description } = Astro.props;
     <title>{title} | 实用网站导航</title>
     {description && <meta name="description" content={description} />}
   </head>
-  <body class="bg-gray-50 text-gray-900 min-h-screen">
-    <header class="bg-white shadow-sm border-b border-gray-100 sticky top-0 z-50">
-      <nav class="max-w-7xl mx-auto px-4 h-14 flex items-center justify-between">
-        <a href="/" class="text-xl font-bold text-brand-600 hover:text-brand-700 transition-colors">
-          🔗 实用网站导航
+  <body class="text-[var(--color-text-primary)] min-h-screen">
+    <!-- 导航栏 - 毛玻璃 -->
+    <header class="glass-strong sticky top-0 z-50 shadow-sm">
+      <nav class="max-w-7xl mx-auto px-5 h-16 flex items-center justify-between">
+        <a href="/" class="text-lg font-bold flex items-center gap-2 group">
+          <span class="w-8 h-8 rounded-xl flex items-center justify-center text-lg"
+            style="background: linear-gradient(135deg, #ff6b9d, #c44dff);">
+            🔗
+          </span>
+          <span class="bg-gradient-to-r from-[var(--color-candy-pink)] to-[var(--color-candy-purple)] bg-clip-text text-transparent">
+            实用网站导航
+          </span>
         </a>
-        <div class="flex gap-4 text-sm">
-          <a href="/" class="text-gray-600 hover:text-brand-600 transition-colors">首页</a>
-          <a href="/category/ai" class="text-gray-600 hover:text-brand-600 transition-colors">AI工具</a>
-          <a href="/category/design" class="text-gray-600 hover:text-brand-600 transition-colors">设计素材</a>
-          <a href="/category/productivity" class="text-gray-600 hover:text-brand-600 transition-colors">效率办公</a>
+        <div class="flex gap-1 text-sm">
+          <a href="/" class="px-3 py-2 rounded-xl text-[var(--color-text-secondary)] hover:bg-white/60 transition-colors">首页</a>
+          <a href="/category/ai" class="px-3 py-2 rounded-xl text-[var(--color-text-secondary)] hover:bg-white/60 transition-colors">AI工具</a>
+          <a href="/category/design" class="px-3 py-2 rounded-xl text-[var(--color-text-secondary)] hover:bg-white/60 transition-colors">设计素材</a>
+          <a href="/category/productivity" class="px-3 py-2 rounded-xl text-[var(--color-text-secondary)] hover:bg-white/60 transition-colors">效率办公</a>
         </div>
       </nav>
     </header>
 
-    <main class="max-w-7xl mx-auto px-4 py-8">
+    <main class="max-w-7xl mx-auto px-5 py-10">
       <slot />
     </main>
 
-    <footer class="border-t border-gray-100 bg-white mt-12">
-      <div class="max-w-7xl mx-auto px-4 py-6 text-center text-sm text-gray-400">
-        <p>© 2026 实用网站导航 — 收录优质在线工具与资源</p>
-      </div>
+    <footer class="py-8 text-center text-sm text-[var(--color-text-muted)]">
+      <p>© 2026 实用网站导航 — 收录优质在线工具与资源</p>
     </footer>
   </body>
 </html>

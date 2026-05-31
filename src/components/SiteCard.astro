@@ -12,48 +12,76 @@ export interface Props {
 
 const { title, url, description, tags, category, freeTier, language, featured } = Astro.props;
 
-const categoryLabels: Record<string, string> = {
-  ai: '🤖 AI工具',
-  design: '🎨 设计素材',
-  productivity: '📋 效率办公',
-  video: '🎬 视频剪辑',
-  dev: '🛠 开发者工具',
-  other: '📦 其他',
+const categoryConfig: Record<string, { emoji: string; gradient: string; dotClass: string }> = {
+  ai: { emoji: '🤖', gradient: 'linear-gradient(135deg, #c44dff, #ff6b9d)', dotClass: 'gradient-dot-purple' },
+  design: { emoji: '🎨', gradient: 'linear-gradient(135deg, #ff6b9d, #ff7b5c)', dotClass: 'gradient-dot-pink' },
+  productivity: { emoji: '📋', gradient: 'linear-gradient(135deg, #4da6ff, #4de8b2)', dotClass: 'gradient-dot-blue' },
+  video: { emoji: '🎬', gradient: 'linear-gradient(135deg, #ff7b5c, #ff6b9d)', dotClass: 'gradient-dot-coral' },
+  dev: { emoji: '🛠', gradient: 'linear-gradient(135deg, #6366f1, #818cf8)', dotClass: 'gradient-dot-purple' },
+  other: { emoji: '📦', gradient: 'linear-gradient(135deg, #a094b0, #c4b5fd)', dotClass: 'gradient-dot-mint' },
 };
 
-const freeTierBadge = freeTier === 'free'
-  ? 'bg-green-100 text-green-700'
-  : freeTier === 'freemium'
-    ? 'bg-yellow-100 text-yellow-700'
-    : 'bg-gray-100 text-gray-600';
+const cat = categoryConfig[category] || categoryConfig['other'];
 
-const freeTierLabel = freeTier === 'free' ? '完全免费' : freeTier === 'freemium' ? '有免费额度' : '付费';
+const freeTierBadge = freeTier === 'free'
+  ? 'bg-gradient-to-r from-emerald-400/20 to-emerald-300/20 text-emerald-700 border-emerald-300/40'
+  : freeTier === 'freemium'
+    ? 'bg-gradient-to-r from-amber-400/20 to-amber-300/20 text-amber-700 border-amber-300/40'
+    : 'bg-white/50 text-gray-500 border-gray-200/50';
+
+const freeTierLabel = freeTier === 'free' ? '🆓 完全免费' : freeTier === 'freemium' ? '🎁 有免费额度' : '💎 付费';
 ---
 
 <a
   href={url}
   target="_blank"
   rel="noopener noreferrer"
-  class="block bg-white rounded-xl border border-gray-100 p-5 hover:shadow-lg hover:border-brand-200 hover:-translate-y-0.5 transition-all duration-200 group"
+  class="glass rounded-2xl p-5 block group transition-all duration-300 hover:glass-strong hover:-translate-y-1 hover:shadow-xl"
 >
-  <div class="flex items-start justify-between gap-2 mb-2">
-    <h3 class="font-semibold text-base text-gray-900 group-hover:text-brand-600 transition-colors truncate">
-      {title}
-    </h3>
-    {featured && <span class="shrink-0 text-xs bg-brand-100 text-brand-700 px-1.5 py-0.5 rounded">精选</span>}
+  <!-- 顶部：图标 + 标题 -->
+  <div class="flex items-start gap-3 mb-3">
+    <div
+      class="w-10 h-10 rounded-xl shrink-0 flex items-center justify-center text-lg shadow-sm"
+      style="background: {cat.gradient};"
+    >
+      {cat.emoji}
+    </div>
+    <div class="min-w-0 flex-1">
+      <div class="flex items-center gap-2">
+        <h3 class="font-semibold text-[15px] text-[var(--color-text-primary)] group-hover:text-[var(--color-candy-purple)] transition-colors truncate">
+          {title}
+        </h3>
+        {featured && (
+          <span class="shrink-0 text-[11px] px-1.5 py-0.5 rounded-full font-medium"
+            style="background: linear-gradient(135deg, rgba(255,107,157,0.15), rgba(196,77,255,0.15)); color: #c44dff;">
+            精选
+          </span>
+        )}
+      </div>
+    </div>
   </div>
 
-  <p class="text-sm text-gray-500 leading-relaxed mb-3 line-clamp-2">{description}</p>
+  <!-- 描述 -->
+  <p class="text-sm text-[var(--color-text-secondary)] leading-relaxed mb-3 line-clamp-2">
+    {description}
+  </p>
 
-  <div class="flex items-center gap-2 mb-3 flex-wrap">
-    <span class={`text-xs px-2 py-0.5 rounded-full ${freeTierBadge}`}>{freeTierLabel}</span>
-    <span class="text-xs bg-gray-100 text-gray-500 px-2 py-0.5 rounded-full">{language}</span>
+  <!-- 标签行 -->
+  <div class="flex items-center gap-1.5 mb-3 flex-wrap">
+    <span class={`text-[11px] px-2 py-0.5 rounded-full border ${freeTierBadge}`}>{freeTierLabel}</span>
+    <span class="text-[11px] bg-white/40 text-[var(--color-text-muted)] px-2 py-0.5 rounded-full border border-white/40">{language}</span>
   </div>
 
-  <div class="flex items-center gap-1.5 flex-wrap">
-    <span class="text-xs text-gray-400 bg-gray-50 px-1.5 py-0.5 rounded">{categoryLabels[category] || category}</span>
+  <!-- 底部：分类 + 标签 -->
+  <div class="flex items-center gap-2 flex-wrap">
+    <div class="flex items-center gap-1.5">
+      <span class={`gradient-dot ${cat.dotClass}`}></span>
+      <span class="text-xs text-[var(--color-text-muted)]">{cat.emoji}</span>
+    </div>
     {tags.slice(0, 3).map(tag => (
-      <span class="text-xs text-gray-400">#{tag}</span>
+      <span class="text-[11px] px-2 py-0.5 rounded-full bg-white/30 text-[var(--color-text-muted)] border border-white/30">
+        {tag}
+      </span>
     ))}
   </div>
 </a>

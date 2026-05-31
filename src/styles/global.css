@@ -1,15 +1,63 @@
 @import 'tailwindcss';
 
-/* 自定义品牌色 */
 @theme {
-  --color-brand-50: #eff6ff;
-  --color-brand-100: #dbeafe;
-  --color-brand-200: #bfdbfe;
-  --color-brand-300: #93c5fd;
-  --color-brand-400: #60a5fa;
-  --color-brand-500: #3b82f6;
-  --color-brand-600: #2563eb;
-  --color-brand-700: #1d4ed8;
-  --color-brand-800: #1e40af;
-  --color-brand-900: #1e3a8a;
+  --color-glass: rgba(255, 255, 255, 0.65);
+  --color-glass-hover: rgba(255, 255, 255, 0.85);
+  --color-glass-border: rgba(255, 255, 255, 0.5);
+
+  --color-candy-pink: #ff6b9d;
+  --color-candy-purple: #c44dff;
+  --color-candy-blue: #4da6ff;
+  --color-candy-coral: #ff7b5c;
+  --color-candy-mint: #4de8b2;
+  --color-candy-yellow: #ffd54b;
+
+  --color-text-primary: #2d2044;
+  --color-text-secondary: #6b5e7b;
+  --color-text-muted: #a094b0;
+}
+
+body {
+  background: linear-gradient(135deg, #fdf2f8 0%, #f5f0ff 30%, #ede9fe 50%, #eff6ff 70%, #f0f9ff 100%);
+  background-attachment: fixed;
+  min-height: 100vh;
+}
+
+/* 毛玻璃卡片基础样式 */
+.glass {
+  background: rgba(255, 255, 255, 0.55);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+}
+
+.glass-strong {
+  background: rgba(255, 255, 255, 0.75);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(255, 255, 255, 0.7);
+}
+
+/* 圆点装饰 */
+.gradient-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.gradient-dot-pink {
+  background: linear-gradient(135deg, #ff6b9d, #ff3d7f);
+}
+.gradient-dot-purple {
+  background: linear-gradient(135deg, #c44dff, #9b30ff);
+}
+.gradient-dot-blue {
+  background: linear-gradient(135deg, #4da6ff, #3b82f6);
+}
+.gradient-dot-coral {
+  background: linear-gradient(135deg, #ff7b5c, #ff5722);
+}
+.gradient-dot-mint {
+  background: linear-gradient(135deg, #4de8b2, #10b981);
 }

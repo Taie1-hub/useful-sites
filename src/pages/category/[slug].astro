@@ -16,34 +16,46 @@ const categorySites = sites
   .map(site => ({ ...site.data, id: site.id }))
   .sort((a, b) => a.sortOrder - b.sortOrder);
 
-const categoryLabels: Record<string, { emoji: string; name: string }> = {
-  ai: { emoji: '🤖', name: 'AI工具' },
-  design: { emoji: '🎨', name: '设计素材' },
-  productivity: { emoji: '📋', name: '效率办公' },
-  video: { emoji: '🎬', name: '视频剪辑' },
-  dev: { emoji: '🛠', name: '开发者工具' },
-  other: { emoji: '📦', name: '其他工具' },
+const categoryMeta: Record<string, { emoji: string; name: string; gradient: string }> = {
+  ai: { emoji: '🤖', name: 'AI工具', gradient: 'from-[#c44dff] to-[#ff6b9d]' },
+  design: { emoji: '🎨', name: '设计素材', gradient: 'from-[#ff6b9d] to-[#ff7b5c]' },
+  productivity: { emoji: '📋', name: '效率办公', gradient: 'from-[#4da6ff] to-[#4de8b2]' },
+  video: { emoji: '🎬', name: '视频剪辑', gradient: 'from-[#ff7b5c] to-[#ff6b9d]' },
+  dev: { emoji: '🛠', name: '开发者工具', gradient: 'from-[#6366f1] to-[#818cf8]' },
+  other: { emoji: '📦', name: '其他工具', gradient: 'from-[#a094b0] to-[#c4b5fd]' },
 };
 
-const cat = categoryLabels[slug] || { emoji: '📦', name: slug };
+const meta = categoryMeta[slug] || { emoji: '📦', name: slug, gradient: 'from-[#a094b0] to-[#c4b5fd]' };
 ---
 
-<Layout title={`${cat.emoji} ${cat.name}`}>
+<Layout title={`${meta.emoji} ${meta.name}`}>
   <div class="mb-6">
-    <a href="/" class="text-sm text-brand-600 hover:text-brand-700 transition-colors">&larr; 返回首页</a>
+    <a href="/" class="inline-flex items-center gap-1 text-sm glass px-3 py-1.5 rounded-xl text-[var(--color-text-secondary)] hover:glass-strong transition-all">
+      &larr; 返回首页
+    </a>
   </div>
 
-  <h1 class="text-2xl font-bold text-gray-900 mb-2">{cat.emoji} {cat.name}</h1>
-  <p class="text-gray-500 mb-8">共收录 {categorySites.length} 个网站</p>
+  <div class="flex items-center gap-4 mb-3">
+    <div class="w-12 h-12 rounded-xl flex items-center justify-center text-2xl shadow-sm"
+      style="background: linear-gradient(135deg, var(--color-candy-pink), var(--color-candy-purple));">
+      {meta.emoji}
+    </div>
+    <div>
+      <h1 class={`text-2xl font-bold bg-gradient-to-r ${meta.gradient} bg-clip-text text-transparent`}>
+        {meta.name}
+      </h1>
+      <p class="text-sm text-[var(--color-text-muted)]">共收录 {categorySites.length} 个网站</p>
+    </div>
+  </div>
 
   {categorySites.length > 0 ? (
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mt-6">
       {categorySites.map(site => <SiteCard {...site} />)}
     </div>
   ) : (
-    <div class="text-center py-12 text-gray-400">
-      <p class="text-4xl mb-3">📭</p>
-      <p>该分类下暂无网站</p>
+    <div class="text-center py-16 text-[var(--color-text-muted)]">
+      <p class="text-5xl mb-4">📭</p>
+      <p class="text-lg">该分类下暂无网站</p>
     </div>
   )}
 </Layout>
