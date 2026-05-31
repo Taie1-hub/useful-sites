@@ -1,0 +1,10 @@
+title: "Human Benchmark"
+url: "https://humanbenchmark.com"
+category: "other"
+tags: ["脑力测试", "反应速度", "记忆力", "趣味挑战"]
+description: "在线脑力测试平台：反应速度、记忆力、协调性等多维度测评。趣味数据可视化，可以和全球用户对比排名。"
+freeTier: "free"
+requiresSignup: false
+language: "英文"
+featured: true
+sortOrder: 15
