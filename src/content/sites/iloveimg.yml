@@ -1,0 +1,10 @@
+title: "iLoveIMG"
+url: "https://www.iloveimg.com/zh-cn"
+category: "design"
+tags: ["图片压缩", "格式转换", "图片编辑", "批量处理"]
+description: "在线图片处理工具集：压缩、裁剪、格式转换、加水印、生成表情包等。支持批量处理，完全免费，有中文界面。"
+freeTier: "free"
+requiresSignup: false
+language: "中文"
+featured: true
+sortOrder: 14
