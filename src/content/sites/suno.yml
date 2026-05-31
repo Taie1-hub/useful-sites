@@ -1,0 +1,10 @@
+title: "Suno"
+url: "https://suno.com"
+category: "ai"
+tags: ["AI音乐", "歌曲生成", "文字转音乐"]
+description: "输入歌词或描述，AI自动生成完整歌曲（含人声+伴奏）。免费版每日可生成多首，适合短视频配乐。"
+freeTier: "freemium"
+requiresSignup: true
+language: "英文"
+featured: true
+sortOrder: 7

@@ -1,0 +1,10 @@
+title: "Pexels"
+url: "https://www.pexels.com"
+category: "design"
+tags: ["免费素材", "图片", "视频素材"]
+description: "全球最大的免费素材库之一，海量高清图片和视频，全部可商用无需署名。做视频封面、配图的宝藏网站。"
+freeTier: "free"
+requiresSignup: false
+language: "中文"
+featured: true
+sortOrder: 6

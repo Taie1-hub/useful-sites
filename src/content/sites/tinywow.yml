@@ -1,0 +1,10 @@
+title: "TinyWow"
+url: "https://tinywow.com"
+category: "productivity"
+tags: ["文件处理", "PDF工具", "图片压缩"]
+description: "完全免费的在线工具集合：PDF编辑、图片压缩、视频转换、AI写作等。无需注册，无广告水印，用完即走。"
+freeTier: "free"
+requiresSignup: false
+language: "英文"
+featured: true
+sortOrder: 4

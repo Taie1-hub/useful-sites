@@ -1,0 +1,10 @@
+title: "DaVinci Resolve"
+url: "https://www.blackmagicdesign.com/products/davinciresolve"
+category: "video"
+tags: ["专业剪辑", "调色", "免费"]
+description: "好莱坞级剪辑+调色软件，免费版功能已极其强大。支持AI语音转字幕、智能裁切、多机位剪辑，学习曲线比PR平缓。"
+freeTier: "free"
+requiresSignup: false
+language: "多语言"
+featured: false
+sortOrder: 20

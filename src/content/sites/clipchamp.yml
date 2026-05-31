@@ -1,0 +1,10 @@
+title: "Clipchamp"
+url: "https://clipchamp.com"
+category: "video"
+tags: ["视频剪辑", "在线编辑", "Microsoft"]
+description: "微软出品的免费在线视频编辑器，内置AI自动字幕、文字转语音、素材库。无需下载，浏览器直接剪视频。"
+freeTier: "free"
+requiresSignup: true
+language: "中文"
+featured: true
+sortOrder: 3

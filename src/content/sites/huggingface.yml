@@ -1,0 +1,10 @@
+title: "Hugging Face Spaces"
+url: "https://huggingface.co/spaces"
+category: "ai"
+tags: ["AI模型", "开源社区", "在线体验"]
+description: "全球最大的AI模型社区，数千个免费AI应用可直接在线体验：图像生成、语音克隆、文本分析等。技术宅必备。"
+freeTier: "free"
+requiresSignup: false
+language: "英文"
+featured: false
+sortOrder: 10

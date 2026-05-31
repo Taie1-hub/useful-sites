@@ -1,0 +1,10 @@
+title: "Notion"
+url: "https://www.notion.so"
+category: "productivity"
+tags: ["笔记", "项目管理", "协作办公"]
+description: "全能型的笔记与协作工具，个人免费版足够日常使用。支持AI辅助写作、数据库视图、团队协作。"
+freeTier: "freemium"
+requiresSignup: true
+language: "中文"
+featured: false
+sortOrder: 15

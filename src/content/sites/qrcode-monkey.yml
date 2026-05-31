@@ -1,0 +1,10 @@
+title: "QRCode Monkey"
+url: "https://www.qrcode-monkey.com"
+category: "dev"
+tags: ["二维码", "设计感", "免费生成"]
+description: "最美观的免费二维码生成器，支持自定义颜色、Logo嵌入、样式设计。生成的二维码永久有效，无限制。"
+freeTier: "free"
+requiresSignup: false
+language: "英文"
+featured: false
+sortOrder: 8

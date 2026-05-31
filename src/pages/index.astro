@@ -1,0 +1,158 @@
+---
+import Layout from '../layouts/Layout.astro';
+import SiteCard from '../components/SiteCard.astro';
+import { getCollection } from 'astro:content';
+
+const sites = await getCollection('sites');
+
+// Sort: featured first, then by sortOrder
+const sortedSites = sites
+  .map(site => ({ ...site.data, id: site.id }))
+  .sort((a, b) => {
+    if (a.featured && !b.featured) return -1;
+    if (!a.featured && b.featured) return 1;
+    return a.sortOrder - b.sortOrder;
+  });
+
+const categories = [
+  { key: 'all', label: '全部' },
+  { key: 'ai', label: '🤖 AI工具' },
+  { key: 'design', label: '🎨 设计素材' },
+  { key: 'productivity', label: '📋 效率办公' },
+  { key: 'video', label: '🎬 视频剪辑' },
+  { key: 'dev', label: '🛠 开发工具' },
+  { key: 'other', label: '📦 其他' },
+];
+
+const featuredSites = sortedSites.filter(s => s.featured);
+const normalSites = sortedSites.filter(s => !s.featured);
+---
+
+<Layout title="首页" description="收录优质实用在线工具和网站资源">
+  <!-- Hero -->
+  <section class="text-center mb-8">
+    <h1 class="text-3xl font-bold text-gray-900 mb-3">
+      发现好用<span class="text-brand-600">实用网站</span>
+    </h1>
+    <p class="text-gray-500 text-base max-w-xl mx-auto">
+      精心筛选的在线工具和资源导航，涵盖 AI、设计、效率、视频剪辑等领域。每个网站都经过实际体验，放心使用。
+    </p>
+  </section>
+
+  <!-- Search & Filter -->
+  <section class="mb-8" id="filter-section">
+    <!-- Search bar -->
+    <div class="max-w-md mx-auto mb-6">
+      <input
+        type="text"
+        id="search-input"
+        placeholder="搜索网站名称、标签、描述..."
+        class="w-full px-4 py-3 rounded-xl border border-gray-200 bg-white text-sm focus:outline-none focus:ring-2 focus:ring-brand-300 focus:border-transparent transition-shadow"
+      />
+    </div>
+
+    <!-- Category tabs -->
+    <div class="flex justify-center flex-wrap gap-2">
+      {categories.map(cat => (
+        <button
+          class="category-btn px-4 py-2 text-sm rounded-full border border-gray-200 bg-white text-gray-600 hover:border-brand-300 hover:text-brand-600 transition-colors"
+          data-category={cat.key}
+        >
+          {cat.label}
+        </button>
+      ))}
+    </div>
+  </section>
+
+  <!-- 精选推荐 -->
+  {featuredSites.length > 0 && (
+    <section class="mb-10">
+      <h2 class="text-lg font-semibold text-gray-800 mb-4 flex items-center gap-2">
+        <span class="w-1 h-5 bg-brand-500 rounded-full"></span> 精选推荐
+      </h2>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        {featuredSites.map(site => (
+          <SiteCard {...site} />
+        ))}
+      </div>
+    </section>
+  )}
+
+  <!-- 全部网站 -->
+  <section>
+    <h2 class="text-lg font-semibold text-gray-800 mb-4 flex items-center gap-2">
+      <span class="w-1 h-5 bg-gray-300 rounded-full"></span> 全部网站
+      <span class="text-sm text-gray-400 font-normal" id="site-count">({sortedSites.length})</span>
+    </h2>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4" id="site-grid">
+      {normalSites.map(site => (
+        <div class="site-card-wrapper" data-category={site.category}>
+          <SiteCard {...site} />
+        </div>
+      ))}
+    </div>
+    <div id="no-results" class="hidden text-center py-12 text-gray-400">
+      <p class="text-4xl mb-3">🔍</p>
+      <p>没有找到匹配的网站，试试换个关键词或分类</p>
+    </div>
+  </section>
+</Layout>
+
+<script>
+  // 客户端搜索和筛选逻辑
+  const searchInput = document.getElementById('search-input') as HTMLInputElement;
+  const categoryBtns = document.querySelectorAll('.category-btn');
+  const siteCards = document.querySelectorAll('.site-card-wrapper');
+  const noResults = document.getElementById('no-results')!;
+  const siteCount = document.getElementById('site-count')!;
+  const allCards = document.querySelectorAll('.site-card-wrapper');
+
+  let activeCategory = 'all';
+
+  function filterCards() {
+    const query = searchInput?.value.toLowerCase() || '';
+    let visibleCount = 0;
+
+    allCards.forEach((card) => {
+      const el = card as HTMLElement;
+      const category = el.dataset.category || '';
+      const text = el.textContent?.toLowerCase() || '';
+
+      const matchCategory = activeCategory === 'all' || category === activeCategory;
+      const matchSearch = query === '' || text.includes(query);
+      const match = matchCategory && matchSearch;
+
+      el.style.display = match ? '' : 'none';
+      if (match) visibleCount++;
+    });
+
+    // Update count
+    siteCount.textContent = `(${visibleCount})`;
+
+    // Toggle empty state
+    noResults.classList.toggle('hidden', visibleCount > 0);
+  }
+
+  // Search input
+  searchInput?.addEventListener('input', filterCards);
+
+  // Category buttons
+  categoryBtns.forEach((btn) => {
+    btn.addEventListener('click', () => {
+      activeCategory = (btn as HTMLElement).dataset.category || 'all';
+
+      // Update active style
+      categoryBtns.forEach((b) => {
+        b.classList.remove('bg-brand-600', 'text-white', 'border-brand-600');
+        b.classList.add('bg-white', 'text-gray-600', 'border-gray-200');
+      });
+      btn.classList.add('bg-brand-600', 'text-white', 'border-brand-600');
+      btn.classList.remove('bg-white', 'text-gray-600', 'border-gray-200');
+
+      filterCards();
+    });
+  });
+
+  // Default: activate "全部" button
+  (categoryBtns[0] as HTMLElement)?.click();
+</script>

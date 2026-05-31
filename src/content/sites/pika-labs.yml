@@ -1,0 +1,10 @@
+title: "Pika Labs"
+url: "https://pika.art"
+category: "ai"
+tags: ["视频生成", "AI创作", "文字转视频"]
+description: "输入文字描述即可生成高质量短视频，支持风格定制和镜头控制，适合快速制作宣传短片和社交媒体内容。"
+freeTier: "freemium"
+requiresSignup: true
+language: "英文"
+featured: true
+sortOrder: 1

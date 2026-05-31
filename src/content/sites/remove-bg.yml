@@ -1,0 +1,10 @@
+title: "Remove.bg"
+url: "https://www.remove.bg"
+category: "ai"
+tags: ["AI抠图", "去背景", "图片处理"]
+description: "一键去除图片背景，AI自动识别主体，5秒出图。支持人物、商品、动物等，免费版可下载低分辨率图片。"
+freeTier: "freemium"
+requiresSignup: false
+language: "多语言"
+featured: true
+sortOrder: 2

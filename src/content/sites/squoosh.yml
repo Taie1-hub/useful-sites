@@ -1,0 +1,10 @@
+title: "Squoosh"
+url: "https://squoosh.app"
+category: "dev"
+tags: ["图片压缩", "Google", "离线可用"]
+description: "Google出品的图片压缩工具，支持WebP/AVIF等现代格式。本地处理不上传服务器，隐私安全，压缩效果肉眼无损。"
+freeTier: "free"
+requiresSignup: false
+language: "英文"
+featured: true
+sortOrder: 9

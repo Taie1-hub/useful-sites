@@ -1,0 +1,49 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import SiteCard from '../../components/SiteCard.astro';
+import { getCollection } from 'astro:content';
+
+export async function getStaticPaths() {
+  const sites = await getCollection('sites');
+  const categories = [...new Set(sites.map(s => s.data.category))];
+  return categories.map(cat => ({ params: { slug: cat } }));
+}
+
+const { slug } = Astro.params;
+const sites = await getCollection('sites');
+const categorySites = sites
+  .filter(s => s.data.category === slug)
+  .map(site => ({ ...site.data, id: site.id }))
+  .sort((a, b) => a.sortOrder - b.sortOrder);
+
+const categoryLabels: Record<string, { emoji: string; name: string }> = {
+  ai: { emoji: '🤖', name: 'AI工具' },
+  design: { emoji: '🎨', name: '设计素材' },
+  productivity: { emoji: '📋', name: '效率办公' },
+  video: { emoji: '🎬', name: '视频剪辑' },
+  dev: { emoji: '🛠', name: '开发者工具' },
+  other: { emoji: '📦', name: '其他工具' },
+};
+
+const cat = categoryLabels[slug] || { emoji: '📦', name: slug };
+---
+
+<Layout title={`${cat.emoji} ${cat.name}`}>
+  <div class="mb-6">
+    <a href="/" class="text-sm text-brand-600 hover:text-brand-700 transition-colors">&larr; 返回首页</a>
+  </div>
+
+  <h1 class="text-2xl font-bold text-gray-900 mb-2">{cat.emoji} {cat.name}</h1>
+  <p class="text-gray-500 mb-8">共收录 {categorySites.length} 个网站</p>
+
+  {categorySites.length > 0 ? (
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+      {categorySites.map(site => <SiteCard {...site} />)}
+    </div>
+  ) : (
+    <div class="text-center py-12 text-gray-400">
+      <p class="text-4xl mb-3">📭</p>
+      <p>该分类下暂无网站</p>
+    </div>
+  )}
+</Layout>
